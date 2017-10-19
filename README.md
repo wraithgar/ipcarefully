@@ -6,8 +6,10 @@ Accepts whitelists or blacklists.
 
 ```javascript
 
+const Https = require(https);
 const IPCarefully = require('ipcarefully');
-const https = IPCarefully.https({ type: 'blacklist', iplist: ['127.0.0.1'], agent: { maxSockets: 5 });
+const agent = IPCarefully.https({ type: 'blacklist', iplist: ['127.0.0.1'], agent: { maxSockets: 5 });
 
-https.get('localhost'); //Will throw an error
+
+Https.request({host: 'localhost', agent }); //Socket will error out before connecting
 ```
