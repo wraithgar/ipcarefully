@@ -4,7 +4,8 @@
   "description": "Creates HTTP or HTTPS agents for node.js that can filter based on IP",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint .",
+    "test": "lab -fL -m 3000"
   },
   "keywords": [
     "ip",
@@ -17,5 +18,16 @@
   "license": "MIT",
   "dependencies": {
     "ip-range-check": "0.0.2"
-  }
+  },
+  "devDependencies": {
+    "code": "^5.1.0",
+    "eslint": "^4.9.0",
+    "eslint-config-hapi": "^10.1.0",
+    "git-validate": "^2.2.2",
+    "lab": "^14.3.1",
+    "nock": "^9.0.22"
+  },
+  "pre-commit": [
+    "test"
+  ]
 }

@@ -1,77 +1,72 @@
 'use strict';
 
-const IPRangeCheck = require('ip-range-check');
+const Assert = require('assert');
+const Dns = require('dns');
 const Http = require('http');
 const Https = require('https');
-const Dns = require('dns');
+const IPRangeCheck = require('ip-range-check');
 
-class Lookup {
 
-  constructor(settings) {
+const lookup = function (settings) {
 
-    assert(this.type === 'whitelist' || this.type === 'blacklist', 'type must be whitelist or blacklist');
-    this.type = settings.type;
-    this.iplist = settings.iplist;
-  },
+    Assert(settings.type === 'whitelist' || settings.type === 'blacklist', 'type must be whitelist or blacklist');
 
-  filter(hostname, options, callback) {
+    const filter = function (hostname, options, callback) {
 
-    if (arguments.length ===2) {
-      callback = options;
-      options = {};
-    }
+        if (arguments.length === 2) {
+            callback = options;
+            options = {};
+        }
 
-    Dns.lookup(hostname, options, (err, address, family) => {
+        Dns.lookup(hostname, options, (err, address, family) => {
 
-      if (err) {
-        callback(err);
-        return;
-      }
+            if (err) {
+                callback(err);
+                return;
+            }
 
-      const ip_test = IPRangeCheck(address, this.iplist);
+            const ip_test = IPRangeCheck(address, settings.iplist);
 
-      if (ip_test && this.type === 'whitelist') { //IP on whitelist, pass
-        callback(err, address, family);
-        return;
-      }
-      if (!ip_test && this.type === 'blacklist') { //IP not on blacklist, pass
-        callback(err, address, family);
-        return;
-      }
-      //Fail
-      callback(new Error(`Connection to IP ${address} not allowed`));
-      return;
-    });
-  }
-
+            if (ip_test && settings.type === 'whitelist') { //IP on whitelist, pass
+                callback(err, address, family);
+                return;
+            }
+            if (!ip_test && settings.type === 'blacklist') { //IP not on blacklist, pass
+                callback(err, address, family);
+                return;
+            }
+            //Fail
+            callback(new Error(`Connection to IP ${address} not allowed`));
+            return;
+        });
+    };
+    return filter;
 };
 
 exports.http = function (settings) {
 
-  const httpAgent = new Http.Agent(settings.agent);
-  const lookup = new (Lookup(settings));
+    const httpAgent = new Http.Agent(settings.agent);
 
-  httpAgent._oldCreateConnection_ = httpAgent.createConnection;
-  httpAgent.createConnection = function (options) {
+    httpAgent._oldCreateConnection_ = httpAgent.createConnection;
+    httpAgent.createConnection = function (options) {
 
-    options.lookup = lookup.filter;
-    return this._oldCreateConnection_(...arguments);
-  };
+        options.lookup = lookup(settings);
+        return this._oldCreateConnection_(...arguments);
+    };
 
-  return httpAgent;
+    return httpAgent;
 };
 
-exports.https = function (options) {
+exports.https = function (settings) {
 
-  const httpsAgent = new Https.Agent(settings.agent);
-  const lookup = new (Lookup(settings));
+    const httpsAgent = new Https.Agent(settings.agent);
 
-  httpsAgent._oldCreateConnection_ = httpsAgent.createConnection;
-  httpsAgent.createConnection = function (options) {
+    httpsAgent._oldCreateConnection_ = httpsAgent.createConnection;
+    httpsAgent.createConnection = function (options) {
 
-    options.lookup = lookup.filter;
-    return this._oldCreateConnection_(...arguments);
-  };
+        options.lookup = lookup(settings);
+        return this._oldCreateConnection_(...arguments);
+    };
 
-  return httpsAgent;
+    return httpsAgent;
 };
