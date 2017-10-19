@@ -1,0 +1,21 @@
+{
+  "name": "ipcarefully",
+  "version": "1.0.0",
+  "description": "Creates HTTP or HTTPS agents for node.js that can filter based on IP",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ip",
+    "filter",
+    "http",
+    "https",
+    "agent"
+  ],
+  "author": "Gar <gar+npm@danger.computer>",
+  "license": "MIT",
+  "dependencies": {
+    "ip-range-check": "0.0.2"
+  }
+}
