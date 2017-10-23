@@ -24,7 +24,7 @@
     "eslint": "^4.9.0",
     "eslint-config-hapi": "^10.1.0",
     "git-validate": "^2.2.2",
-    "lab": "^14.3.1",
+    "lab": "^15.0.0",
     "nock": "^9.0.22"
   },
   "pre-commit": [
