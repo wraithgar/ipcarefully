@@ -1,5 +1,7 @@
 #IP Carefully
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/wraithgar/ipcarefully.svg)](https://greenkeeper.io/)
+
 Creates HTTP or HTTPS agents for node.js that can filter based on IP.
 Accepts whitelists or blacklists.
 
