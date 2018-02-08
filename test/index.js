@@ -17,23 +17,29 @@ describe('http', () => {
         const blacklist = ['127.0.0.1'];
         const agent = IPCarefully.http({ type: 'blacklist', iplist: blacklist });
 
-        it('does not allow blacklisted IP', (done) => {
+        it('does not allow blacklisted IP', () => {
 
             const request = Http.request({ host: 'localhost', agent });
-            request.on('error', (err) => {
+            return new Promise((resolve, reject) => {
 
-                expect(err.message).to.include('Connection to IP');
-                done();
+                request.on('error', (err) => {
+
+                    expect(err.message).to.include('Connection to IP');
+                    resolve();
+                });
             });
         });
 
-        it('allows non blacklisted IP', (done) => {
+        it('allows non blacklisted IP', () => {
 
             const request = Http.request({ host: 'google.com', agent });
-            request.on('socket', (socket) => {
+            return new Promise((resolve, reject) => {
 
-                expect(socket).to.exist();
-                done();
+                request.on('socket', (socket) => {
+
+                    expect(socket).to.exist();
+                    resolve();
+                });
             });
         });
     });
@@ -43,24 +49,30 @@ describe('http', () => {
         const whitelist = ['127.0.0.1'];
         const agent = IPCarefully.http({ type: 'whitelist', iplist: whitelist });
 
-        it('does not allow non whitelisted IP', (done) => {
+        it('does not allow non whitelisted IP', () => {
 
             const request = Http.request({ host: 'google.com', agent });
-            request.on('error', (err) => {
+            return new Promise((resolve, reject) => {
 
-                expect(err.message).to.include('Connection to IP');
-                done();
+                request.on('error', (err) => {
+
+                    expect(err.message).to.include('Connection to IP');
+                    resolve();
+                });
             });
         });
 
-        it('allows whitelisted IP', (done) => {
+        it('allows whitelisted IP', () => {
 
             const request = Http.request({ host: 'localhost', agent });
-            request.on('error', (err) => {
+            return new Promise((resolve, reject) => {
 
-                //Should get a connection refused error
-                expect(err.message).to.not.include('Connection to IP');
-                done();
+                request.on('error', (err) => {
+
+                    //Should get a connection refused error
+                    expect(err.message).to.not.include('Connection to IP');
+                    resolve();
+                });
             });
         });
     });
@@ -73,23 +85,29 @@ describe('https', () => {
         const blacklist = ['127.0.0.1'];
         const agent = IPCarefully.https({ type: 'blacklist', iplist: blacklist });
 
-        it('does not allow blacklisted IP', (done) => {
+        it('does not allow blacklisted IP', () => {
 
             const request = Https.request({ host: 'localhost', agent });
-            request.on('error', (err) => {
+            return new Promise((resolve, reject) => {
 
-                expect(err.message).to.include('Connection to IP');
-                done();
+                request.on('error', (err) => {
+
+                    expect(err.message).to.include('Connection to IP');
+                    resolve();
+                });
             });
         });
 
-        it('allows non blacklisted IP', (done) => {
+        it('allows non blacklisted IP', () => {
 
             const request = Https.request({ host: 'google.com', agent });
-            request.on('socket', (socket) => {
+            return new Promise((resolve, reject) => {
 
-                expect(socket).to.exist();
-                done();
+                request.on('socket', (socket) => {
+
+                    expect(socket).to.exist();
+                    resolve();
+                });
             });
         });
     });

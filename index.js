@@ -36,7 +36,6 @@ const lookup = function (settings) {
                 return;
             }
             //Fail
-            console.log(`${address} failing ${ip_test} with type ${settings.type}`);
             callback(new Error(`Connection to IP ${address} not allowed`));
             return;
         });

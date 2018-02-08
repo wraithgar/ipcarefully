@@ -20,12 +20,12 @@
     "ip-range-check": "0.0.2"
   },
   "devDependencies": {
-    "code": "^5.1.0",
-    "eslint": "^4.9.0",
+    "code": "^5.1.2",
+    "eslint": "^4.17.0",
     "eslint-config-hapi": "^11.0.0",
     "git-validate": "^2.2.2",
-    "lab": "^14.3.1",
-    "nock": "^9.0.22"
+    "lab": "^15.2.1",
+    "nock": "^9.1.6"
   },
   "pre-commit": [
     "test"
