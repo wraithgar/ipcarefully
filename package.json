@@ -3,6 +3,10 @@
   "version": "1.0.5",
   "description": "Creates HTTP or HTTPS agents for node.js that can filter based on IP",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wraithgar/ipcarefully.git"
+  },
   "scripts": {
     "lint": "eslint .",
     "test": "lab -fL -m 3000"
