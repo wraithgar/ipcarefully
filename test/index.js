@@ -2,9 +2,8 @@
 
 const lab = exports.lab = require('lab').script();
 const { expect } = require('code');
-const { describe, it } = lab;
 
-//const Nock = require('nock');
+const { describe, it } = lab;
 
 const IPCarefully = require('../');
 const Http = require('http');
