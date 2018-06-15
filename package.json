@@ -1,6 +1,6 @@
 {
   "name": "ipcarefully",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Creates HTTP or HTTPS agents for node.js that can filter based on IP",
   "main": "index.js",
   "repository": {
