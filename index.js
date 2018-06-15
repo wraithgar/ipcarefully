@@ -31,15 +31,18 @@ const lookup = function (settings) {
                 callback(err, address, family);
                 return;
             }
+
             if (!ip_test && settings.type === 'blacklist') { //IP not on blacklist, pass
                 callback(err, address, family);
                 return;
             }
             //Fail
+
             callback(new Error(`Connection to IP ${address} not allowed`));
             return;
         });
     };
+
     return filter;
 };
 
@@ -48,10 +51,11 @@ exports.http = function (settings) {
     const httpAgent = new Http.Agent(settings.agent);
 
     httpAgent._oldCreateConnection_ = httpAgent.createConnection;
-    httpAgent.createConnection = function (options) {
+    httpAgent.createConnection = function (options, ...args) {
 
         options.lookup = lookup(settings);
-        return this._oldCreateConnection_(...arguments);
+
+        return this._oldCreateConnection_(options, ...args);
     };
 
     return httpAgent;
@@ -62,10 +66,11 @@ exports.https = function (settings) {
     const httpsAgent = new Https.Agent(settings.agent);
 
     httpsAgent._oldCreateConnection_ = httpsAgent.createConnection;
-    httpsAgent.createConnection = function (options) {
+    httpsAgent.createConnection = function (options, ...args) {
 
         options.lookup = lookup(settings);
-        return this._oldCreateConnection_(...arguments);
+
+        return this._oldCreateConnection_(options, ...args);
     };
 
     return httpsAgent;
