@@ -21,7 +21,7 @@
   "author": "Gar <gar+npm@danger.computer>",
   "license": "MIT",
   "dependencies": {
-    "ip-range-check": "0.0.2"
+    "ip-range-check": "0.2.0"
   },
   "devDependencies": {
     "code": "^5.2.4",
