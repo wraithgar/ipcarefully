@@ -31,7 +31,7 @@
     "@hapi/code": "^8.0.1",
     "@hapi/lab": "^24.0.0",
     "git-validate": "^2.2.4",
-    "standard": "^16.0.3"
+    "standard": "^17.0.0"
   },
   "pre-commit": [
     "test"
