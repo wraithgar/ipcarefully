@@ -28,7 +28,7 @@
     "ip-range-check": "0.2.0"
   },
   "devDependencies": {
-    "@hapi/code": "^8.0.1",
+    "@hapi/code": "^9.0.0",
     "@hapi/lab": "^24.0.0",
     "git-validate": "^2.2.4",
     "standard": "^17.0.0"
